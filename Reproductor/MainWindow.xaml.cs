@@ -108,9 +108,13 @@ namespace Reproductor
                 {
                     reader = new AudioFileReader(txtRutaArchivo.Text);
 
+                    float duracionFadeIn = float.Parse(txtDuracionFI.Text);
+                    float duracionFadeOut = float.Parse(txtDuracionFO.Text);
+                    float inicioFadeOut = float.Parse(txtInicioFO.Text);
                     /*volume = new VolumeSampleProvider(reader);
                     volume.Volume = (float)(sldVolumen.Value);*/
-                    efectoFadeIn = new EfectoFadeIn(reader, 5.0f);
+
+                    efectoFadeIn = new EfectoFadeIn(reader, duracionFadeIn);
                     efectoVolumen = new EfectoVolumen(efectoFadeIn);
                     efectoVolumen.Volumen = (float)(sldVolumen.Value);
 
