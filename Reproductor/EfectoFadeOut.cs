@@ -38,15 +38,12 @@ namespace Reproductor
             segundosTranscuridos = ((float)muestrasLeidas / (float)fuente.WaveFormat.SampleRate) / (float)fuente.WaveFormat.Channels;
             if (segundosTranscuridos >= inicio)
             {
-               if (segundosTranscuridos <= duracion)
-                        {
-                            //Aplicar el efecto
-                            float factorEscala = duracion/ segundosTranscuridos  ;
-                            for (int i = 0; i < read; i++)
-                            {
-                                buffer[i + offset] *= factorEscala;
-                            }
-                        }
+                    //Aplicar el efecto
+                    float factorEscala = duracion/ segundosTranscuridos  ;
+                    for (int i = 0; i < read; i++)
+                    {
+                        buffer[i + offset] *= factorEscala;
+                    }
             }
          
 
