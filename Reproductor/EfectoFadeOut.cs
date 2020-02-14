@@ -9,6 +9,7 @@ namespace Reproductor
 {
     class EfectoFadeOUt :ISampleProvider
     {
+        //entrada
         private ISampleProvider fuente;
         private int muestrasLeidas = 0;
         private float segundosTranscuridos = 0;
@@ -32,21 +33,27 @@ namespace Reproductor
         public int Read(float[] buffer, int offset, int count)
         {
             int read = fuente.Read(buffer, offset, count);
-
+            //Proceso - modificacion de los valores del buffer
             //Aplicar el efecto
             muestrasLeidas += read;
-            segundosTranscuridos = ((float)muestrasLeidas / (float)fuente.WaveFormat.SampleRate) / (float)fuente.WaveFormat.Channels;
-            if (segundosTranscuridos >= inicio)
+            segundosTranscuridos = ((float)muestrasLeidas / (float)fuente.WaveFormat.SampleRate) 
+                / (float)fuente.WaveFormat.Channels;
+            //Aplicar el efecto
+            if(segundosTranscuridos >= inicio && segundosTranscuridos <= duracion)
             {
-                    //Aplicar el efecto
-                    float factorEscala = duracion/ segundosTranscuridos  ;
-                    for (int i = 0; i < read; i++)
-                    {
-                        buffer[i + offset] *= factorEscala;
-                    }
-            }
-         
+                float factorEscala = (((inicio+duracion)-segundosTranscuridos)/duracion);
+                //Escalamos muestra
+                for (int i = 0; i < read; i++)
+                {
+                    buffer[i + offset] *= factorEscala;
 
+                    if ((inicio+duracion)-segundosTranscuridos <= 0)
+                    {
+                        buffer[i + offset] = 0;
+                    }
+                }
+                //Salida -la variable buffer modificada
+            }
             return read;
         }
     }
