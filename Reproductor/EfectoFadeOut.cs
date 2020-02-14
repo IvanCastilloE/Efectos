@@ -42,15 +42,14 @@ namespace Reproductor
             if(segundosTranscuridos >= inicio && segundosTranscuridos <= duracion)
             {
                 float factorEscala = (((inicio+duracion)-segundosTranscuridos)/duracion);
+                if((inicio + duracion) - segundosTranscuridos <= 0.0f)
+                {
+                    factorEscala = 0.0f;
+                }
                 //Escalamos muestra
                 for (int i = 0; i < read; i++)
                 {
                     buffer[i + offset] *= factorEscala;
-
-                    if ((inicio+duracion)-segundosTranscuridos <= 0)
-                    {
-                        buffer[i + offset] = 0;
-                    }
                 }
                 //Salida -la variable buffer modificada
             }

@@ -117,7 +117,7 @@ namespace Reproductor
 
                     efectoFadeIn = new EfectoFadeIn(reader, duracionFadeIn);
                     efectoFadeOut = new EfectoFadeOUt(reader, duracionFadeOut, inicioFadeOut);
-                    efectoVolumen = new EfectoVolumen(efectoFadeIn);
+                    efectoVolumen = new EfectoVolumen(efectoFadeOut);
                     efectoVolumen.Volumen = (float)(sldVolumen.Value);
 
                     output = new WaveOut();
