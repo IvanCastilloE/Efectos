@@ -116,7 +116,7 @@ namespace Reproductor
                     /*volume = new VolumeSampleProvider(reader);
                     volume.Volume = (float)(sldVolumen.Value);*/
 
-                    efectoDelay = new EfectoDelay(reader, (int)(sldOffsetDelay.Value));
+                    efectoDelay = new EfectoDelay(reader, (int)(sldOffsetDelay.Value),(float)(sldGananciaDelay.Value));
                     efectoFadeIn = new EfectoFadeIn(efectoDelay, duracionFadeIn);
                     efectoFadeOut = new EfectoFadeOUt(efectoFadeIn, duracionFadeOut, inicioFadeOut);
                     efectoVolumen = new EfectoVolumen(efectoFadeOut);
@@ -200,14 +200,22 @@ namespace Reproductor
             lblOffsetDelay.Text = ((int)(sldOffsetDelay.Value)).ToString();
             if(efectoDelay != null)
             {
-                efectoDelay.offsetMilisegundos = (int)(sldOffsetDelay.Value);
+                efectoDelay.OffsetMilisegundos = (int)(sldOffsetDelay.Value);
             }
         }
 
         private void SldGananciaDelay_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if(efectoDelay != null)
-            lblGananciaDelay.Text = sldGananciaDelay.Value.ToString("N");
+            if(lblGananciaDelay != null)
+            {
+                lblGananciaDelay.Text = sldGananciaDelay.Value.ToString("N");
+                if (efectoDelay != null)
+                {
+                    efectoDelay.Ganancia = (float)(sldGananciaDelay.Value);
+                }
+            }
+            
+
         }
     }
 }
